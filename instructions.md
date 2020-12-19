@@ -1,6 +1,6 @@
 ## instructions on how to fork this repo
 
-1. Log in to GitHub with your credentials
+1. Log in to GitHub with your credentials (or someone elses!)
 
 2. Navigate to https://github.com/robarnoldio/forkthisprojectsite/
 
