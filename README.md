@@ -46,20 +46,20 @@ The configuration details of each machine may be found below.
 The machines on the internal network are not exposed to the public Internet. 
 
 Only the Provisioning machine machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- _TODO: Add whitelisted IP addresses_
+- 75.87.171.148
 
-Machines within the network can only be accessed by _____.
-- _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
+Machines within the network can only be accessed by 10.0.0.4 (Jump-Box-Provisioner).
+
 
 A summary of the access policies in place can be found in the table below.
 
 | Name     | Publicly Accessible | Allowed IP Addresses |
 |----------|---------------------|----------------------|
 | Jump Box | Yes                 | 75.87.171.148        |
-|  Web1    | Yes                 |  10.0.0.4            |
-|  Web2    | Yes                 |  10.0.0.5            |
-|  Web3    | Yes                 |  10.0.0.6            |
-|  ELK     | Yes                 |10.0.0.7/75.87.171.148|
+|  Web1    | Yes                 |  10.0.0.5            |
+|  Web2    | Yes                 |  10.0.0.6            |
+|  Web3    | Yes                 |  10.0.0.7            |
+|  ELK     | Yes                 |75.87.171.148
 
 ### Elk Configuration
 
@@ -71,9 +71,10 @@ Ansible was used to automate configuration of the ELK machine. No configuration 
 
 
 The playbook implements the following tasks:
-- Installs Docker
-- Download image
+- Installs Docker .io
+- Virtual memory increase
 - The managed nodes to target, using a pattern at least one task to execute.
+- Install pip3
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
@@ -81,13 +82,17 @@ The following screenshot displays the result of running `docker ps` after succes
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
-- _TODO: List the IP addresses of the machines you are monitoring_
+   |Web-1 	    |   	| 10.0.0.5   	|
+   |Web-2 	    |   	| 10.0.0.6   	|
+   |Web-3 	    |   	| 10.0.0.7    |
 
 We have installed the following Beats on these machines:
-- _TODO: Specify which Beats you successfully installed_
+- Filebeat
+- Metricbeat
 
 These Beats allow us to collect the following information from each machine:
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+- The filebeats collects data of the file system such as log events, and transports them to the monitoring cluster.
+- The metricbeats collects metrics and statistics and transports them to Elasticsearch or Logstash for its output.
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
@@ -96,10 +101,15 @@ SSH into the control node and follow the steps below:
 - Copy the playbook file to Ansible.
 - Update the host file to include webservers/Elk
 - Run the playbook, and navigate to Kibana to check that the installation worked as expected.
+- Navigate to the URL : http://[ELK IP Address:5061/app/kibana
 
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running?
+. To download a playbook, run the following commands.
 
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+nano ansible.cfg
+add the machine, its IP, and ansible_python_interpreter=/usr/bin/python3 to the hosts
+Ctrl + x to exit file
+in the folder that install-elk.yml is in, run: cp install-elk.yml /etc/ansible
+nano install-elk.yml /etc/ansible
+name: installing elk hosts: [your_machine]
+Ctrl + x to exit file
+ansible-playbook install-elk.yml
