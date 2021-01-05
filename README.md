@@ -64,12 +64,16 @@ A summary of the access policies in place can be found in the table below.
 ### Elk Configuration
 
 Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
-- _TODO: What is the main advantage of automating configuration with Ansible?_
+
+- One of the prominent advantages of Ansible also refers to the language in which it is written. Python is a human-readable language and serves as the basis for Ansible. It provides better facilities for getting up Ansible and running it due to the presence of Python libraries on the majority of Linux distributions by default.
+
+- Ansible manages all the master-agent communications through Standard SSH or Paramiko module. The Paramiko module is a Python implementation of SSH2 and is crucial for managing nodes. Therefore, Ansible does not require any form of agents installed on remote systems for ensuring management. As a result, maintenance overheads and performance degradations reduce considerably by huge margins with Ansible.
+
 
 The playbook implements the following tasks:
-- _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
-- ...
+- Installs Docker
+- Download image
+- The managed nodes to target, using a pattern at least one task to execute.
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
